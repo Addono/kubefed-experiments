@@ -1,0 +1,23 @@
+apiVersion: types.kubefed.io/v1beta1
+kind: FederatedService
+metadata:
+  name: nginx-federated
+  namespace: stars
+spec:
+  template:
+    metadata:
+      name: nginx
+      labels:
+        app: nginx
+    spec:
+      type: LoadBalancer
+      ports:
+      - port: 80
+        nodePort: 30101
+        protocol: TCP
+      selector:
+        app: nginx
+  placement:
+    clusters:
+    - name: minikube
+    - name: minikube-slave1
